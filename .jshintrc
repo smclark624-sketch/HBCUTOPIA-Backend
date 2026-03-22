@@ -1,0 +1,10 @@
+{
+  "esversion": 11,
+  "browser": true,
+  "devel": false,
+  "asi": false,
+  "globals": {
+    "tailwind": "readonly",
+    "gtag": "readonly"
+  }
+}

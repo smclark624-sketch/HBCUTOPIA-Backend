@@ -83,7 +83,7 @@
                     }
                 }
             }
-        }
+        };
     </script>
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
@@ -129,6 +129,16 @@
         
         .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
+
+        @media (prefers-reduced-motion: reduce) {
+            html:focus-within { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
 <body class="text-gray-800 antialiased overflow-x-hidden">
@@ -1734,7 +1744,7 @@
                         <div>
                             <h3 class="text-2xl font-bold text-gray-900 mb-6 border-b border-gray-100 pb-3 flex items-center gap-3"><i class="fas fa-play-circle text-${safeColor}"></i> Video Campus Tour</h3>
                             <div class="relative w-full overflow-hidden pt-[56.25%] rounded-2xl shadow-inner border border-gray-200 bg-black">
-                                <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/${school.video}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Campus video tour"></iframe>
+                                <iframe loading="lazy" class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/${school.video}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Campus video tour"></iframe>
                             </div>
                         </div>
                         
@@ -1845,6 +1855,11 @@
                     document.getElementById('edit-lname').value = nameParts.slice(1).join(" ") || "";
                 }
             }
+
+            renderChatSidebar();
+            renderChatWindow();
+            renderConnectionsPanel();
+            renderPendingRequests();
         }
 
         // View Switching (SPA Logic)
@@ -1894,7 +1909,7 @@
             const title = `Video Tour: ${schoolName}`;
             const bodyText = `
                 <div class="relative w-full overflow-hidden pt-[56.25%] rounded-xl shadow-inner border border-gray-200">
-                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="Video Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe loading="lazy" class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="Video Tour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
                 </div>
                 <p class="mt-4 text-sm text-gray-500 text-center font-medium">Take a guided walk through the beautiful campus of ${schoolName}.</p>
             `;
@@ -2746,15 +2761,6 @@ function sendChatMsg() {
         showToast("Error connecting to the AI Server.");
     });
 }
-
-const originalInit = initApp;
-initApp = function() {
-    originalInit();
-    renderChatSidebar();
-    renderChatWindow();
-    renderConnectionsPanel();
-    renderPendingRequests();
-};
 
 
 // --- AI Logic Hub ---
