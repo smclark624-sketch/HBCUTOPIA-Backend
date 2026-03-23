@@ -3055,8 +3055,12 @@ async function processLogin() {
         document.querySelectorAll('.join-btn').forEach(btn => btn.style.display = 'none');
         const pDesktop = document.getElementById('desktop-profile-btn');
         const pMobile = document.getElementById('mobile-profile-btn');
+        const mDesktop = document.getElementById('desktop-messages-btn');
+        const mMobile = document.getElementById('mobile-messages-btn');
         if(pDesktop) { pDesktop.classList.remove('hidden'); pDesktop.classList.add('flex'); }
         if(pMobile) { pMobile.classList.remove('hidden'); }
+        if(mDesktop) { mDesktop.classList.remove('hidden'); mDesktop.classList.add('flex'); }
+        if(mMobile) { mMobile.classList.remove('hidden'); }
         
         // Update profile fields
         document.getElementById('prof-name-display').innerText = found.name;
@@ -3187,8 +3191,12 @@ async function finishOnboarding() {
     document.querySelectorAll('.join-btn').forEach(btn => btn.style.display = 'none');
     const pDesktop = document.getElementById('desktop-profile-btn');
     const pMobile = document.getElementById('mobile-profile-btn');
+    const mDesktop = document.getElementById('desktop-messages-btn');
+    const mMobile = document.getElementById('mobile-messages-btn');
     if(pDesktop) { pDesktop.classList.remove('hidden'); pDesktop.classList.add('flex'); }
     if(pMobile) { pMobile.classList.remove('hidden'); }
+    if(mDesktop) { mDesktop.classList.remove('hidden'); mDesktop.classList.add('flex'); }
+    if(mMobile) { mMobile.classList.remove('hidden'); }
     
     // Update profile text
     document.getElementById('prof-name-display').innerText = name;
