@@ -38,6 +38,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://images.unsplash.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
     <!-- Google Analytics -->
     <noscript><p style="display:none">JavaScript is required for the full HBCUtopia experience.</p></noscript>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVHKZWZSHQ"></script>
@@ -50,7 +51,10 @@
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%239B111E'/><text y='.9em' font-size='70' x='50%' text-anchor='middle' fill='%23F2A900' font-family='serif' font-weight='bold'>H</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    </noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W==" crossorigin="anonymous" referrerpolicy="no-referrer" media="all">
     <script>
         tailwind.config = {
@@ -177,7 +181,7 @@
 
                 <!-- Mobile menu button -->
                 <div class="flex items-center md:hidden">
-                    <button onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" class="text-gray-700 hover:text-hbcu-crimson focus:outline-none p-2">
+                    <button id="mobile-nav-toggle" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" aria-controls="mobile-menu" aria-expanded="false" class="text-gray-700 hover:text-hbcu-crimson focus:outline-none p-2">
                         <i class="fas fa-bars text-2xl"></i>
                     </button>
                 </div>
@@ -185,7 +189,7 @@
         </div>
         
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full">
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full" aria-hidden="true">
             <div class="px-4 pt-2 pb-6 space-y-1 sm:px-3">
                 <button onclick="switchView('yard'); toggleMobileMenu()" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-800 hover:bg-gray-50 hover:text-hbcu-crimson">The Yard</button>
                 <button onclick="switchView('directory'); toggleMobileMenu()" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-800 hover:bg-gray-50 hover:text-hbcu-crimson">Directory</button>
@@ -1898,8 +1902,27 @@
 
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            const toggleButton = document.getElementById('mobile-nav-toggle');
+            if (!menu) return;
+            const isHidden = menu.classList.toggle('hidden');
+            menu.setAttribute('aria-hidden', isHidden ? 'true' : 'false');
+            if (toggleButton) {
+                toggleButton.setAttribute('aria-expanded', (!isHidden).toString());
+            }
         }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key !== 'Escape') return;
+            const menu = document.getElementById('mobile-menu');
+            const toggleButton = document.getElementById('mobile-nav-toggle');
+            if (menu && !menu.classList.contains('hidden')) {
+                menu.classList.add('hidden');
+                menu.setAttribute('aria-hidden', 'true');
+                if (toggleButton) {
+                    toggleButton.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
 
         // Modal Logic
 
@@ -2121,8 +2144,8 @@
             });
         }
 
-        // Initialize on load
-        window.addEventListener('load', () => initApp());
+        // Initialize once DOM is ready to speed up hydration
+        document.addEventListener('DOMContentLoaded', initApp);
 
         // Add navbar background on scroll
         window.addEventListener('scroll', () => {
@@ -2150,7 +2173,7 @@
         
         <!-- Header / Progress -->
         <div class="px-8 pt-8 pb-4 border-b border-gray-100 flex items-center justify-between">
-            <h2 class="text-2xl font-serif text-hbcu-onyx" id="onboarding-modal-title step-title">The Basics</h2>
+            <h2 class="text-2xl font-serif text-hbcu-onyx" id="onboarding-modal-title"><span id="step-title">The Basics</span></h2>
             <button onclick="closeOnboarding()" class="text-gray-400 hover:text-hbcu-crimson transition-colors">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
