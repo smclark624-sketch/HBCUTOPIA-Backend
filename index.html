@@ -39,8 +39,11 @@
     <link rel="preconnect" href="https://images.unsplash.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://hbcutopia-backend.onrender.com" crossorigin>
+    <link rel="dns-prefetch" href="https://hbcutopia-backend.onrender.com">
+    <!-- JavaScript fallback for no-script environments -->
+    <noscript><style>#noscript-warning{display:flex !important}</style></noscript>
     <!-- Google Analytics -->
-    <noscript><p style="display:none">JavaScript is required for the full HBCUtopia experience.</p></noscript>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVHKZWZSHQ"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -55,7 +58,11 @@
     <noscript>
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     </noscript>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W==" crossorigin="anonymous" referrerpolicy="no-referrer" media="all">
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" fetchpriority="high" crossorigin>
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W==" crossorigin="anonymous" referrerpolicy="no-referrer" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </noscript>
     <script>
         tailwind.config = {
             theme: {
@@ -134,6 +141,35 @@
         .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
 
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 1rem;
+            background: #1A1A1A;
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: top 0.2s ease;
+            z-index: 999;
+        }
+        .skip-link:focus {
+            top: 1rem;
+        }
+
+        #noscript-warning {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background-color: #9B111E;
+            color: #fff;
+            padding: 0.9rem 1.25rem;
+            font-weight: 600;
+            text-align: center;
+            gap: 0.5rem;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             html:focus-within { scroll-behavior: auto; }
             *, *::before, *::after {
@@ -146,6 +182,10 @@
     </style>
 </head>
 <body class="text-gray-800 antialiased overflow-x-hidden">
+    <div id="noscript-warning" role="alert">
+        JavaScript is required for the full HBCUtopia experience. Please enable it to access interactive features.
+    </div>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <div id="toast-container" class="fixed top-24 left-1/2 transform -translate-x-1/2 z-[100] flex flex-col gap-2" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <!-- Navigation -->
@@ -161,27 +201,27 @@
                 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <button onclick="switchView('yard')" class="nav-btn text-gray-700 hover:text-hbcu-crimson font-medium transition-colors">The Yard</button>
-                    <button onclick="switchView('directory')" class="nav-btn text-gray-700 hover:text-hbcu-crimson font-medium transition-colors">Directory</button>
-                    <button onclick="switchView('events')" class="nav-btn text-gray-700 hover:text-hbcu-crimson font-medium transition-colors">Events</button>
-                    <button onclick="switchView('jobs')" class="nav-btn text-gray-700 hover:text-hbcu-crimson font-medium transition-colors">Careers</button>
-                    <button onclick="switchView('scholars')" class="nav-btn text-gray-700 hover:text-hbcu-crimson font-medium transition-colors">Future Scholars</button>
+                    <button type="button" onclick="switchView('yard')" class="nav-btn text-gray-700 hover:text-hbcu-crimson font-medium transition-colors">The Yard</button>
+                    <button type="button" onclick="switchView('directory')" class="nav-btn text-gray-700 hover:text-hbcu-crimson font-medium transition-colors">Directory</button>
+                    <button type="button" onclick="switchView('events')" class="nav-btn text-gray-700 hover:text-hbcu-crimson font-medium transition-colors">Events</button>
+                    <button type="button" onclick="switchView('jobs')" class="nav-btn text-gray-700 hover:text-hbcu-crimson font-medium transition-colors">Careers</button>
+                    <button type="button" onclick="switchView('scholars')" class="nav-btn text-gray-700 hover:text-hbcu-crimson font-medium transition-colors">Future Scholars</button>
                     <div class="border-l border-gray-300 h-6 mx-2"></div>
-                    <button onclick="openLogin()" class="join-btn text-gray-700 hover:text-hbcu-crimson font-bold transition-colors">Log In</button>
-                    <button onclick="openOnboarding()" class="join-btn bg-hbcu-onyx text-white px-6 py-2.5 rounded-full font-medium hover:bg-hbcu-crimson hover:shadow-lg transition-all transform hover:-translate-y-0.5 ml-4">Join the Yard</button>
-                    <button id="desktop-messages-btn" onclick="switchView('messages')" class="hidden nav-btn items-center justify-center w-10 h-10 bg-white hover:bg-gray-50 rounded-full transition-colors border border-gray-200 text-gray-800 shadow-sm relative mr-2">
+                    <button type="button" onclick="openLogin()" class="join-btn text-gray-700 hover:text-hbcu-crimson font-bold transition-colors">Log In</button>
+                    <button type="button" onclick="openOnboarding()" class="join-btn bg-hbcu-onyx text-white px-6 py-2.5 rounded-full font-medium hover:bg-hbcu-crimson hover:shadow-lg transition-all transform hover:-translate-y-0.5 ml-4">Join the Yard</button>
+                    <button type="button" id="desktop-messages-btn" aria-label="Open messages inbox" onclick="switchView('messages')" class="hidden nav-btn items-center justify-center w-10 h-10 bg-white hover:bg-gray-50 rounded-full transition-colors border border-gray-200 text-gray-800 shadow-sm relative mr-2">
                         <i class="fas fa-comment-dots text-lg"></i>
                         <span class="absolute top-0 right-0 w-3 h-3 bg-red-500 border-2 border-white rounded-full"></span>
                     </button>
-                    <button id="desktop-profile-btn" onclick="switchView('profile')" class="hidden nav-btn items-center gap-2 bg-white hover:bg-gray-50 px-4 py-2 rounded-full font-bold transition-colors border border-gray-200 text-gray-800 shadow-sm">
-                        <img loading="lazy" src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="My profile avatar" class="w-7 h-7 rounded-full object-cover border border-gray-200" id="nav-avatar"> 
+                    <button type="button" id="desktop-profile-btn" onclick="switchView('profile')" class="hidden nav-btn items-center gap-2 bg-white hover:bg-gray-50 px-4 py-2 rounded-full font-bold transition-colors border border-gray-200 text-gray-800 shadow-sm">
+                        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="My profile avatar" width="56" height="56" class="w-7 h-7 rounded-full object-cover border border-gray-200" id="nav-avatar"> 
                         My Profile
                     </button>
                 </div>
 
                 <!-- Mobile menu button -->
                 <div class="flex items-center md:hidden">
-                    <button id="mobile-nav-toggle" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" aria-controls="mobile-menu" aria-expanded="false" class="text-gray-700 hover:text-hbcu-crimson focus:outline-none p-2">
+                    <button type="button" id="mobile-nav-toggle" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu" aria-controls="mobile-menu" aria-expanded="false" class="text-gray-700 hover:text-hbcu-crimson focus:outline-none p-2">
                         <i class="fas fa-bars text-2xl"></i>
                     </button>
                 </div>
@@ -189,25 +229,25 @@
         </div>
         
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full" aria-hidden="true">
+        <div id="mobile-menu" hidden inert class="hidden md:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full">
             <div class="px-4 pt-2 pb-6 space-y-1 sm:px-3">
-                <button onclick="switchView('yard'); toggleMobileMenu()" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-800 hover:bg-gray-50 hover:text-hbcu-crimson">The Yard</button>
-                <button onclick="switchView('directory'); toggleMobileMenu()" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-800 hover:bg-gray-50 hover:text-hbcu-crimson">Directory</button>
-                <button onclick="switchView('events'); toggleMobileMenu()" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-800 hover:bg-gray-50 hover:text-hbcu-crimson">Events</button>
-                <button onclick="switchView('jobs'); toggleMobileMenu()" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-800 hover:bg-gray-50 hover:text-hbcu-crimson">Careers</button>
-                <button onclick="switchView('scholars'); toggleMobileMenu()" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-800 hover:bg-gray-50 hover:text-hbcu-crimson">Future Scholars</button>
+                <button type="button" onclick="switchView('yard'); toggleMobileMenu()" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-800 hover:bg-gray-50 hover:text-hbcu-crimson">The Yard</button>
+                <button type="button" onclick="switchView('directory'); toggleMobileMenu()" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-800 hover:bg-gray-50 hover:text-hbcu-crimson">Directory</button>
+                <button type="button" onclick="switchView('events'); toggleMobileMenu()" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-800 hover:bg-gray-50 hover:text-hbcu-crimson">Events</button>
+                <button type="button" onclick="switchView('jobs'); toggleMobileMenu()" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-800 hover:bg-gray-50 hover:text-hbcu-crimson">Careers</button>
+                <button type="button" onclick="switchView('scholars'); toggleMobileMenu()" class="block w-full text-left px-3 py-3 rounded-md text-base font-medium text-gray-800 hover:bg-gray-50 hover:text-hbcu-crimson">Future Scholars</button>
                 <div class="mt-4 pt-4 border-t border-gray-100">
-                    <button onclick="openLogin(); toggleMobileMenu()" class="join-btn w-full bg-gray-100 text-gray-800 px-4 py-3 rounded-md font-medium text-center mb-2">Log In</button>
-                    <button onclick="openOnboarding(); toggleMobileMenu()" class="join-btn w-full bg-hbcu-crimson text-white px-4 py-3 rounded-md font-medium text-center">Join Network</button>
-                    <button id="mobile-messages-btn" onclick="switchView('messages'); toggleMobileMenu()" class="hidden w-full text-left px-3 py-3 rounded-md text-base font-bold text-gray-800 hover:bg-gray-50 flex items-center justify-between border-t border-gray-100 mt-2 pt-4">
-                        <div class="flex items-center gap-3">
+                    <button type="button" onclick="openLogin(); toggleMobileMenu()" class="join-btn w-full bg-gray-100 text-gray-800 px-4 py-3 rounded-md font-medium text-center mb-2">Log In</button>
+                    <button type="button" onclick="openOnboarding(); toggleMobileMenu()" class="join-btn w-full bg-hbcu-crimson text-white px-4 py-3 rounded-md font-medium text-center">Join Network</button>
+                    <button type="button" id="mobile-messages-btn" onclick="switchView('messages'); toggleMobileMenu()" class="hidden w-full text-left px-3 py-3 rounded-md text-base font-bold text-gray-800 hover:bg-gray-50 flex items-center justify-between border-t border-gray-100 mt-2 pt-4">
+                        <span class="flex items-center gap-3">
                             <i class="fas fa-comment-dots text-gray-400"></i>
                             Messages
-                        </div>
+                        </span>
                         <span class="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">1 New</span>
                     </button>
-                    <button id="mobile-profile-btn" onclick="switchView('profile'); toggleMobileMenu()" class="hidden w-full text-left px-3 py-3 rounded-md text-base font-bold text-gray-800 hover:bg-gray-50 flex items-center gap-3 border-t border-gray-50">
-                        <img loading="lazy" src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="My profile avatar" class="w-8 h-8 rounded-full object-cover" id="nav-avatar-mobile">
+                    <button type="button" id="mobile-profile-btn" onclick="switchView('profile'); toggleMobileMenu()" class="hidden w-full text-left px-3 py-3 rounded-md text-base font-bold text-gray-800 hover:bg-gray-50 flex items-center gap-3 border-t border-gray-50">
+                        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="My profile avatar" width="64" height="64" class="w-8 h-8 rounded-full object-cover" id="nav-avatar-mobile">
                         My Profile Settings
                     </button>
                 </div>
@@ -235,10 +275,10 @@
                             A premier network connecting students, alumni, and black professionals across the globe. Step on the yard, no matter where you are.
                         </p>
                         <div class="flex flex-col sm:flex-row gap-4">
-                            <button onclick="switchView('directory')" class="bg-hbcu-gold text-hbcu-onyx px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:shadow-[0_0_20px_rgba(242,169,0,0.4)] transition-all transform hover:-translate-y-1">
+                            <button type="button" onclick="switchView('directory')" class="bg-hbcu-gold text-hbcu-onyx px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:shadow-[0_0_20px_rgba(242,169,0,0.4)] transition-all transform hover:-translate-y-1">
                                 Explore Network
                             </button>
-                            <button onclick="switchView('yard')" class="bg-white/10 text-white border border-white/30 px-8 py-4 rounded-full font-bold text-lg hover:bg-white/20 backdrop-blur-sm transition-all">
+                            <button type="button" onclick="switchView('yard')" class="bg-white/10 text-white border border-white/30 px-8 py-4 rounded-full font-bold text-lg hover:bg-white/20 backdrop-blur-sm transition-all">
                                 See the Feed
                             </button>
                         </div>
@@ -279,7 +319,7 @@
                             <h2 class="text-4xl font-bold brand-font text-hbcu-onyx mb-2">On The Yard</h2>
                             <p class="text-lg text-gray-600">Latest updates, campus culture, and breaking news.</p>
                         </div>
-                        <button onclick="switchView('yard')" class="text-hbcu-crimson font-medium hover:text-red-800 transition-colors hidden md:block">
+                        <button type="button" onclick="switchView('yard')" class="text-hbcu-crimson font-medium hover:text-red-800 transition-colors hidden md:block">
                             View All News &rarr;
                         </button>
                     </div>
@@ -288,7 +328,7 @@
                         <!-- Article 1 -->
                         <div class="group cursor-pointer" onclick="switchView('yard')">
                             <div class="relative h-60 rounded-2xl overflow-hidden mb-5">
-                                <img loading="lazy" src="https://images.unsplash.com/photo-1594750852517-f37738fa2384?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Students" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1594750852517-f37738fa2384?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Students" width="800" height="600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase text-hbcu-teal">Campus Life</div>
                             </div>
                             <div class="text-sm text-gray-500 mb-2">March 15, 2026</div>
@@ -300,7 +340,7 @@
                         <!-- Article 2 -->
                         <div class="group cursor-pointer" onclick="switchView('yard')">
                             <div class="relative h-60 rounded-2xl overflow-hidden mb-5">
-                                <img loading="lazy" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Alumni" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Alumni" width="800" height="600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase text-hbcu-gold">Alumni</div>
                             </div>
                             <div class="text-sm text-gray-500 mb-2">March 14, 2026</div>
@@ -312,7 +352,7 @@
                         <!-- Article 3 -->
                         <div class="group cursor-pointer" onclick="switchView('yard')">
                             <div class="relative h-60 rounded-2xl overflow-hidden mb-5">
-                                <img loading="lazy" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Culture" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Culture" width="800" height="600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase text-hbcu-crimson">Culture</div>
                             </div>
                             <div class="text-sm text-gray-500 mb-2">March 12, 2026</div>
@@ -322,7 +362,7 @@
                         </div>
                     </div>
                     
-                    <button onclick="switchView('yard')" class="w-full md:hidden text-center text-hbcu-crimson font-medium py-3 border border-gray-200 rounded-lg">
+                    <button type="button" onclick="switchView('yard')" class="w-full md:hidden text-center text-hbcu-crimson font-medium py-3 border border-gray-200 rounded-lg">
                         View All News &rarr;
                     </button>
                 </div>
@@ -336,10 +376,10 @@
                     <div class="grid md:grid-cols-2 gap-8">
                         <!-- Spotlight 1 -->
                         <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 items-center md:items-start group cursor-pointer hover-lift" onclick="switchView('directory')">
-                            <img loading="lazy" src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Marcus Jenkins" class="w-24 h-24 rounded-full object-cover border-4 border-gray-50">
+                            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Marcus Jenkins" width="200" height="200" class="w-24 h-24 rounded-full object-cover border-4 border-gray-50">
                             <div class="text-center md:text-left">
-                                <div class="text-xs font-bold tracking-wider uppercase text-hbcu-teal mb-2">Business & Tech</div>
-                                <h3 class="text-2xl font-bold brand-font text-hbcu-onyx mb-1">Marcus Jenkins - NC A&T</h3>
+                                <div class="text-xs font-bold tracking-wider uppercase text-hbcu-teal mb-2">Business &amp; Tech</div>
+                                <h3 class="text-2xl font-bold brand-font text-hbcu-onyx mb-1">Marcus Jenkins - NC A&amp;T</h3>
                                 <p class="text-gray-600 mb-4">Recently named 30 Under 30 for his innovative clean-energy platform revolutionizing urban grid management.</p>
                                 <span class="text-hbcu-crimson font-medium group-hover:underline">Read Story</span>
                             </div>
@@ -347,9 +387,9 @@
 
                         <!-- Spotlight 2 -->
                         <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 items-center md:items-start group cursor-pointer hover-lift" onclick="switchView('directory')">
-                            <img loading="lazy" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Sarah Thompson" class="w-24 h-24 rounded-full object-cover border-4 border-gray-50">
+                            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Sarah Thompson" width="200" height="200" class="w-24 h-24 rounded-full object-cover border-4 border-gray-50">
                             <div class="text-center md:text-left">
-                                <div class="text-xs font-bold tracking-wider uppercase text-hbcu-gold mb-2">Arts & Culture</div>
+                                <div class="text-xs font-bold tracking-wider uppercase text-hbcu-gold mb-2">Arts &amp; Culture</div>
                                 <h3 class="text-2xl font-bold brand-font text-hbcu-onyx mb-1">Sarah Thompson - Howard Univ.</h3>
                                 <p class="text-gray-600 mb-4">Her debut documentary on the legacy of the Divine Nine premiered at Sundance to critical acclaim.</p>
                                 <span class="text-hbcu-crimson font-medium group-hover:underline">Read Story</span>
@@ -364,7 +404,7 @@
                 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex flex-col md:flex-row justify-between items-center mb-12">
                         <h2 class="text-4xl font-bold brand-font mb-4 md:mb-0">The Calendar</h2>
-                        <button onclick="switchView('events')" class="text-hbcu-gold font-medium hover:text-white transition-colors">
+                        <button type="button" onclick="switchView('events')" class="text-hbcu-gold font-medium hover:text-white transition-colors">
                             View Full Calendar &rarr;
                         </button>
                     </div>
@@ -421,7 +461,7 @@
                         <h1 class="text-4xl font-bold brand-font mb-2">The Yard</h1>
                         <p class="text-gray-300 text-lg">The pulse of the HBCU ecosystem: from prospective students to industry leaders.</p>
                     </div>
-                    <button onclick="openQuadPulse()" class="bg-gradient-to-r from-blue-500 to-teal-400 text-white px-5 py-2.5 rounded-full font-medium shadow-lg hover:shadow-xl transition-all flex items-center gap-2 border border-white/20">
+                    <button type="button" onclick="openQuadPulse()" class="bg-gradient-to-r from-blue-500 to-teal-400 text-white px-5 py-2.5 rounded-full font-medium shadow-lg hover:shadow-xl transition-all flex items-center gap-2 border border-white/20">
                         <i class="fas fa-bolt"></i> Quad Pulse
                     </button>
                 </div>
@@ -435,48 +475,48 @@
                         
                         <ul class="space-y-4" id="yard-filters">
                             <li>
-                                <button onclick="filterYard('All')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-hbcu-crimson/10 text-hbcu-crimson font-medium transition-colors filter-btn group border border-hbcu-crimson/20">
-                                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-hbcu-crimson group-hover:scale-110 transition-transform"><i class="fas fa-globe"></i></div>
-                                    <div class="text-left">
-                                        <div class="font-bold">Ecosystem Feed</div>
-                                        <div class="text-xs opacity-80">All network activity</div>
-                                    </div>
+                                <button type="button" onclick="filterYard('All')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-hbcu-crimson/10 text-hbcu-crimson font-medium transition-colors filter-btn group border border-hbcu-crimson/20">
+                                    <span class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-hbcu-crimson group-hover:scale-110 transition-transform"><i class="fas fa-globe"></i></span>
+                                    <span class="text-left flex flex-col">
+                                        <span class="font-bold">Ecosystem Feed</span>
+                                        <span class="text-xs opacity-80">All network activity</span>
+                                    </span>
                                 </button>
                             </li>
                             <li>
-                                <button onclick="switchView('scholars')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 font-medium transition-colors filter-btn group border border-transparent hover:border-gray-200">
-                                    <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform"><i class="fas fa-seedling"></i></div>
-                                    <div class="text-left">
-                                        <div class="font-bold text-gray-900">Future Scholars</div>
-                                        <div class="text-xs text-gray-500">Admissions, tours, prep</div>
-                                    </div>
+                                <button type="button" onclick="switchView('scholars')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 font-medium transition-colors filter-btn group border border-transparent hover:border-gray-200">
+                                    <span class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform"><i class="fas fa-seedling"></i></span>
+                                    <span class="text-left flex flex-col">
+                                        <span class="font-bold text-gray-900">Future Scholars</span>
+                                        <span class="text-xs text-gray-500">Admissions, tours, prep</span>
+                                    </span>
                                 </button>
                             </li>
                             <li>
-                                <button onclick="filterYard('Campus Life')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 font-medium transition-colors filter-btn group border border-transparent hover:border-gray-200">
-                                    <div class="w-10 h-10 rounded-full bg-hbcu-gold/20 flex items-center justify-center text-hbcu-gold group-hover:scale-110 transition-transform"><i class="fas fa-university"></i></div>
-                                    <div class="text-left">
-                                        <div class="font-bold text-gray-900">Campus Life</div>
-                                        <div class="text-xs text-gray-500">Current student updates</div>
-                                    </div>
+                                <button type="button" onclick="filterYard('Campus Life')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 font-medium transition-colors filter-btn group border border-transparent hover:border-gray-200">
+                                    <span class="w-10 h-10 rounded-full bg-hbcu-gold/20 flex items-center justify-center text-hbcu-gold group-hover:scale-110 transition-transform"><i class="fas fa-university"></i></span>
+                                    <span class="text-left flex flex-col">
+                                        <span class="font-bold text-gray-900">Campus Life</span>
+                                        <span class="text-xs text-gray-500">Current student updates</span>
+                                    </span>
                                 </button>
                             </li>
                             <li>
-                                <button onclick="filterYard('Alumni Network')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 font-medium transition-colors filter-btn group border border-transparent hover:border-gray-200">
-                                    <div class="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform"><i class="fas fa-user-graduate"></i></div>
-                                    <div class="text-left">
-                                        <div class="font-bold text-gray-900">Alumni Network</div>
-                                        <div class="text-xs text-gray-500">Graduates, milestones, events</div>
-                                    </div>
+                                <button type="button" onclick="filterYard('Alumni Network')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 font-medium transition-colors filter-btn group border border-transparent hover:border-gray-200">
+                                    <span class="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform"><i class="fas fa-user-graduate"></i></span>
+                                    <span class="text-left flex flex-col">
+                                        <span class="font-bold text-gray-900">Alumni Network</span>
+                                        <span class="text-xs text-gray-500">Graduates, milestones, events</span>
+                                    </span>
                                 </button>
                             </li>
                             <li>
-                                <button onclick="filterYard('Corporate Partners')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 font-medium transition-colors filter-btn group border border-transparent hover:border-gray-200">
-                                    <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600 group-hover:scale-110 transition-transform"><i class="fas fa-briefcase"></i></div>
-                                    <div class="text-left">
-                                        <div class="font-bold text-gray-900">Corporate Partners</div>
-                                        <div class="text-xs text-gray-500">Recruiting, jobs, internships</div>
-                                    </div>
+                                <button type="button" onclick="filterYard('Corporate Partners')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 font-medium transition-colors filter-btn group border border-transparent hover:border-gray-200">
+                                    <span class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600 group-hover:scale-110 transition-transform"><i class="fas fa-briefcase"></i></span>
+                                    <span class="text-left flex flex-col">
+                                        <span class="font-bold text-gray-900">Corporate Partners</span>
+                                        <span class="text-xs text-gray-500">Recruiting, jobs, internships</span>
+                                    </span>
                                 </button>
                             </li>
                         </ul>
@@ -484,16 +524,16 @@
                         <div class="mt-8 pt-6 border-t border-gray-100">
                             <h3 class="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wider">Quick Actions</h3>
                             <div class="grid grid-cols-2 gap-3">
-                                <button onclick="openModal('Mentorship', 'Connect with a mentor or offer guidance to a student.')" class="bg-gray-50 hover:bg-gray-100 p-3 rounded-lg text-center text-sm font-medium text-gray-700 transition-colors border border-gray-200">
+                                <button type="button" onclick="openModal('Mentorship', 'Connect with a mentor or offer guidance to a student.')" class="bg-gray-50 hover:bg-gray-100 p-3 rounded-lg text-center text-sm font-medium text-gray-700 transition-colors border border-gray-200">
                                     <i class="fas fa-hands-helping block text-lg mb-1 text-hbcu-teal"></i> Mentor
                                 </button>
-                                <button onclick="switchView('jobs')" class="bg-gray-50 hover:bg-gray-100 p-3 rounded-lg text-center text-sm font-medium text-gray-700 transition-colors border border-gray-200">
+                                <button type="button" onclick="switchView('jobs')" class="bg-gray-50 hover:bg-gray-100 p-3 rounded-lg text-center text-sm font-medium text-gray-700 transition-colors border border-gray-200">
                                     <i class="fas fa-search-dollar block text-lg mb-1 text-hbcu-gold"></i> Hire
                                 </button>
-                                <button onclick="openModal('Campus Tours', 'Schedule an in-person or virtual campus tour.')" class="bg-gray-50 hover:bg-gray-100 p-3 rounded-lg text-center text-sm font-medium text-gray-700 transition-colors border border-gray-200">
+                                <button type="button" onclick="openModal('Campus Tours', 'Schedule an in-person or virtual campus tour.')" class="bg-gray-50 hover:bg-gray-100 p-3 rounded-lg text-center text-sm font-medium text-gray-700 transition-colors border border-gray-200">
                                     <i class="fas fa-map-marked-alt block text-lg mb-1 text-hbcu-crimson"></i> Tour
                                 </button>
-                                <button onclick="switchView('directory')" class="bg-gray-50 hover:bg-gray-100 p-3 rounded-lg text-center text-sm font-medium text-gray-700 transition-colors border border-gray-200">
+                                <button type="button" onclick="switchView('directory')" class="bg-gray-50 hover:bg-gray-100 p-3 rounded-lg text-center text-sm font-medium text-gray-700 transition-colors border border-gray-200">
                                     <i class="fas fa-users block text-lg mb-1 text-purple-600"></i> Connect
                                 </button>
                             </div>
@@ -506,13 +546,13 @@
                     <!-- Create Post -->
                     <div class="bg-white rounded-xl shadow-sm p-5 mb-6 border border-gray-100">
                         <div class="flex gap-4">
-                            <img loading="lazy" src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Your profile" class="w-12 h-12 rounded-full border-2 border-gray-100 object-cover">
+                            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Your profile" class="w-12 h-12 rounded-full border-2 border-gray-100 object-cover">
                             <div class="flex-1">
                                 <input type="text" placeholder="Share updates, ask questions, or post opportunities..." class="w-full bg-gray-50 rounded-full px-5 py-3 focus:outline-none focus:ring-2 focus:ring-hbcu-gold/50 border border-gray-200 mb-3" onclick="openModal('Create Post', 'Feature coming soon! You will be able to post updates, photos, and polls.')">
                                 <div class="flex gap-4 px-2">
-                                    <button class="text-gray-500 hover:text-blue-600 text-sm font-medium transition-colors" onclick="openModal('Media', 'Upload photos or videos.')"><i class="fas fa-image mr-1"></i> Media</button>
-                                    <button class="text-gray-500 hover:text-green-600 text-sm font-medium transition-colors" onclick="openModal('Event', 'Create a campus or alumni event.<br><br><a href=\'#\' onclick=\'closeModal();switchView(&quot;events&quot;);\' class=\'text-hbcu-crimson font-bold underline\'>Go to the Events Page &rarr;</a>')"><i class="fas fa-calendar-alt mr-1"></i> Event</button>
-                                    <button class="text-gray-500 hover:text-hbcu-gold text-sm font-medium transition-colors" onclick="openModal('Opportunity', 'Post a job or internship.')"><i class="fas fa-briefcase mr-1"></i> Opportunity</button>
+                                    <button type="button" class="text-gray-500 hover:text-blue-600 text-sm font-medium transition-colors" onclick="openModal('Media', 'Upload photos or videos.')"><i class="fas fa-image mr-1"></i> Media</button>
+                                    <button type="button" class="text-gray-500 hover:text-green-600 text-sm font-medium transition-colors" onclick="openModal('Event', 'Create a campus or alumni event.<br><br><a href=\'#\' onclick=\'closeModal();switchView(&quot;events&quot;);\' class=\'text-hbcu-crimson font-bold underline\'>Go to the Events Page &rarr;</a>')"><i class="fas fa-calendar-alt mr-1"></i> Event</button>
+                                    <button type="button" class="text-gray-500 hover:text-hbcu-gold text-sm font-medium transition-colors" onclick="openModal('Opportunity', 'Post a job or internship.')"><i class="fas fa-briefcase mr-1"></i> Opportunity</button>
                                 </div>
                             </div>
                         </div>
@@ -536,21 +576,21 @@
                     <div class="w-full md:w-80 border-r border-gray-100 flex flex-col flex-shrink-0 bg-white z-10">
                         <div class="p-4 border-b border-gray-100 flex items-center justify-between bg-white">
                             <h2 class="text-xl font-bold brand-font text-gray-900">Messages</h2>
-                            <button onclick="openModal('New Message', 'Start typing a name to search for connections.')" class="text-gray-400 hover:text-hbcu-crimson transition-colors">
+                            <button type="button" aria-label="Compose a new message" onclick="openModal('New Message', 'Start typing a name to search for connections.')" class="text-gray-400 hover:text-hbcu-crimson transition-colors">
                                 <i class="fas fa-edit"></i>
                             </button>
                         </div>
                         
                         <div class="flex border-b border-gray-100 text-sm font-bold bg-white">
-                            <button onclick="document.getElementById('msg-tabs-chats').classList.remove('hidden'); document.getElementById('msg-tabs-reqs').classList.add('hidden'); this.classList.add('text-hbcu-onyx', 'border-hbcu-onyx'); this.classList.remove('text-gray-400', 'border-transparent'); this.nextElementSibling.classList.remove('text-hbcu-onyx', 'border-hbcu-onyx'); this.nextElementSibling.classList.add('text-gray-400', 'border-transparent');" class="flex-1 py-3 text-center border-b-2 text-hbcu-onyx border-hbcu-onyx transition-colors">Chats</button>
-                            <button onclick="document.getElementById('msg-tabs-chats').classList.add('hidden'); document.getElementById('msg-tabs-reqs').classList.remove('hidden'); this.classList.add('text-hbcu-onyx', 'border-hbcu-onyx'); this.classList.remove('text-gray-400', 'border-transparent'); this.previousElementSibling.classList.remove('text-hbcu-onyx', 'border-hbcu-onyx'); this.previousElementSibling.classList.add('text-gray-400', 'border-transparent');" class="flex-1 py-3 text-center border-b-2 text-gray-400 border-transparent transition-colors">Requests <span id="request-count" class="bg-red-500 text-white px-1.5 rounded-full text-[10px] ml-1 hidden">0</span></button>
+                            <button type="button" onclick="document.getElementById('msg-tabs-chats').classList.remove('hidden'); document.getElementById('msg-tabs-reqs').classList.add('hidden'); this.classList.add('text-hbcu-onyx', 'border-hbcu-onyx'); this.classList.remove('text-gray-400', 'border-transparent'); this.nextElementSibling.classList.remove('text-hbcu-onyx', 'border-hbcu-onyx'); this.nextElementSibling.classList.add('text-gray-400', 'border-transparent');" class="flex-1 py-3 text-center border-b-2 text-hbcu-onyx border-hbcu-onyx transition-colors">Chats</button>
+                            <button type="button" onclick="document.getElementById('msg-tabs-chats').classList.add('hidden'); document.getElementById('msg-tabs-reqs').classList.remove('hidden'); this.classList.add('text-hbcu-onyx', 'border-hbcu-onyx'); this.classList.remove('text-gray-400', 'border-transparent'); this.previousElementSibling.classList.remove('text-hbcu-onyx', 'border-hbcu-onyx'); this.previousElementSibling.classList.add('text-gray-400', 'border-transparent');" class="flex-1 py-3 text-center border-b-2 text-gray-400 border-transparent transition-colors">Requests <span id="request-count" class="bg-red-500 text-white px-1.5 rounded-full text-[10px] ml-1 hidden">0</span></button>
                         </div>
                         
                         <!-- Chat List -->
                         <div id="msg-tabs-chats" class="flex-1 overflow-y-auto">
                             <!-- Active Chat Item -->
                             <div class="p-4 flex gap-3 items-center hover:bg-gray-50 cursor-pointer border-l-4 border-hbcu-gold bg-gray-50 transition-colors">
-                                <img loading="lazy" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Marcus Johnson" class="w-12 h-12 rounded-full object-cover">
+                                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Marcus Johnson" class="w-12 h-12 rounded-full object-cover">
                                 <div class="flex-1 min-w-0">
                                     <div class="flex justify-between items-baseline mb-0.5">
                                         <h4 class="font-bold text-gray-900 truncate text-sm">Marcus Johnson</h4>
@@ -562,7 +602,7 @@
                             
                             <!-- Chat Item -->
                             <div class="p-4 flex gap-3 items-center hover:bg-gray-50 cursor-pointer border-l-4 border-transparent transition-colors">
-                                <img loading="lazy" src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Elena Rodriguez" class="w-12 h-12 rounded-full object-cover">
+                                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Elena Rodriguez" class="w-12 h-12 rounded-full object-cover">
                                 <div class="flex-1 min-w-0">
                                     <div class="flex justify-between items-baseline mb-0.5">
                                         <h4 class="font-bold text-gray-900 truncate text-sm">Elena Rodriguez</h4>
@@ -595,16 +635,16 @@
                         <!-- Chat Header -->
                         <div class="p-4 border-b border-gray-200 bg-white flex items-center justify-between shadow-sm z-10">
                             <div id="chat-header-info" class="flex items-center gap-3">
-                                <img loading="lazy" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Marcus Johnson" class="w-10 h-10 rounded-full object-cover">
+                                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Marcus Johnson" class="w-10 h-10 rounded-full object-cover">
                                 <div>
                                     <h3 class="font-bold text-gray-900">Marcus Johnson</h3>
                                     <p class="text-xs text-green-600 font-medium"><i class="fas fa-circle text-[8px] mr-1"></i>Online</p>
                                 </div>
                             </div>
                             <div class="flex gap-3 text-gray-400">
-                                <button class="hover:text-hbcu-crimson transition-colors w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center"><i class="fas fa-video"></i></button>
-                                <button class="hover:text-hbcu-crimson transition-colors w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center"><i class="fas fa-phone-alt"></i></button>
-                                <button class="hover:text-hbcu-crimson transition-colors w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center"><i class="fas fa-ellipsis-v"></i></button>
+                                <button type="button" aria-label="Start video call" class="hover:text-hbcu-crimson transition-colors w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center"><i class="fas fa-video"></i></button>
+                                <button type="button" aria-label="Start audio call" class="hover:text-hbcu-crimson transition-colors w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center"><i class="fas fa-phone-alt"></i></button>
+                                <button type="button" aria-label="Open conversation options" class="hover:text-hbcu-crimson transition-colors w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center"><i class="fas fa-ellipsis-v"></i></button>
                             </div>
                         </div>
 
@@ -616,7 +656,7 @@
                             
                             <!-- Received Msg -->
                             <div class="flex gap-3 items-end">
-                                <img loading="lazy" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Marcus Johnson" class="w-6 h-6 rounded-full object-cover mb-1">
+                                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Marcus Johnson" class="w-6 h-6 rounded-full object-cover mb-1">
                                 <div class="bg-white border border-gray-200 text-gray-800 px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm max-w-[75%] text-sm">
                                     Hey! I saw you just joined the network. Are you going to be at the tech summit in Atlanta this year?
                                 </div>
@@ -631,7 +671,7 @@
                             
                             <!-- Received Msg -->
                             <div class="flex gap-3 items-end">
-                                <img loading="lazy" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Marcus Johnson" class="w-6 h-6 rounded-full object-cover mb-1">
+                                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Marcus Johnson" class="w-6 h-6 rounded-full object-cover mb-1">
                                 <div class="bg-white border border-gray-200 text-gray-800 px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm max-w-[75%] text-sm">
                                     I am! We're putting together a mixer afterwards for HBCU alumni in tech. I'll make sure to send you the invite link once we lock down the venue.
                                 </div>
@@ -649,10 +689,10 @@
                         <!-- Chat Input -->
                         <div class="p-4 bg-white border-t border-gray-200">
                             <div class="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-full px-2 py-1.5 focus-within:border-hbcu-gold focus-within:ring-2 focus-within:ring-hbcu-gold/20 transition-all">
-                                <button class="w-8 h-8 rounded-full text-gray-400 hover:text-blue-500 hover:bg-gray-200 flex items-center justify-center transition-colors"><i class="fas fa-plus"></i></button>
+                                <button type="button" aria-label="Add attachment" class="w-8 h-8 rounded-full text-gray-400 hover:text-blue-500 hover:bg-gray-200 flex items-center justify-center transition-colors"><i class="fas fa-plus"></i></button>
                                 <input type="text" id="chat-input-box" placeholder="Write a message..." class="flex-1 bg-transparent border-none focus:outline-none focus:ring-0 text-sm py-2 px-2" onkeypress="if(event.key === 'Enter') sendChatMsg()">
-                                <button class="w-8 h-8 rounded-full text-gray-400 hover:text-pink-500 hover:bg-gray-200 flex items-center justify-center transition-colors"><i class="far fa-smile"></i></button>
-                                <button onclick="sendChatMsg()" aria-label="Send message" class="w-8 h-8 rounded-full bg-hbcu-gold text-hbcu-onyx hover:bg-yellow-400 flex items-center justify-center transition-all shadow-sm"><i class="fas fa-paper-plane text-xs" aria-hidden="true"></i></button>
+                                <button type="button" aria-label="Insert emoji" class="w-8 h-8 rounded-full text-gray-400 hover:text-pink-500 hover:bg-gray-200 flex items-center justify-center transition-colors"><i class="far fa-smile"></i></button>
+                                <button type="button" onclick="sendChatMsg()" aria-label="Send message" class="w-8 h-8 rounded-full bg-hbcu-gold text-hbcu-onyx hover:bg-yellow-400 flex items-center justify-center transition-all shadow-sm"><i class="fas fa-paper-plane text-xs" aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </div>
@@ -669,11 +709,11 @@
                     <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-8">Connect with verified alumni, current students, and corporate partners across the HBCU ecosystem.</p>
                     <div class="max-w-3xl mx-auto flex flex-col md:flex-row gap-3 bg-white/10 p-2 rounded-2xl border border-white/20 backdrop-blur-sm">
                         <input type="text" id="dir-search" placeholder="Search by name, company, or major..." class="w-full px-4 py-3 text-white placeholder-gray-300 focus:outline-none bg-transparent" onkeyup="filterDirectory()">
-                        <button class="bg-hbcu-gold text-hbcu-onyx px-8 py-3 rounded-xl font-bold hover:bg-yellow-400 transition-colors shadow-sm" onclick="filterDirectory()"><i class="fas fa-search mr-2"></i> Search</button>
+                        <button type="button" class="bg-hbcu-gold text-hbcu-onyx px-8 py-3 rounded-xl font-bold hover:bg-yellow-400 transition-colors shadow-sm" onclick="filterDirectory()"><i class="fas fa-search mr-2"></i> Search</button>
                     </div>
                     
                     <div class="mt-8 flex justify-center gap-4">
-                        <button onclick="openMentorMatch()" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all inline-flex items-center gap-2 border border-purple-400/30">
+                        <button type="button" onclick="openMentorMatch()" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all inline-flex items-center gap-2 border border-purple-400/30">
                             <i class="fas fa-magic"></i> Find an AI Mentor Match
                         </button>
                     </div>
@@ -687,7 +727,7 @@
                         <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 sticky top-24">
                             <div class="flex items-center justify-between mb-4 border-b border-gray-100 pb-3">
                                 <h3 class="font-bold text-gray-900"><i class="fas fa-filter text-hbcu-crimson mr-2"></i> Filters</h3>
-                                <button onclick="document.getElementById('dir-search').value=''; document.getElementById('dir-school-filter').value=''; document.getElementById('dir-industry-filter').value=''; filterDirectory();" class="text-xs text-gray-500 hover:text-hbcu-crimson">Clear</button>
+                                <button type="button" onclick="document.getElementById('dir-search').value=''; document.getElementById('dir-school-filter').value=''; document.getElementById('dir-industry-filter').value=''; filterDirectory();" class="text-xs text-gray-500 hover:text-hbcu-crimson">Clear</button>
                             </div>
                             
                             <div class="space-y-4">
@@ -698,7 +738,7 @@
                                         <option value="Howard">Howard University</option>
                                         <option value="Spelman">Spelman College</option>
                                         <option value="Morehouse">Morehouse College</option>
-                                        <option value="FAMU">Florida A&M University</option>
+                                        <option value="FAMU">Florida A&amp;M University</option>
                                     </select>
                                 </div>
                                 
@@ -706,10 +746,10 @@
                                     <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Industry</label>
                                     <select id="dir-industry-filter" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:border-hbcu-crimson bg-gray-50" onchange="filterDirectory()">
                                         <option value="">All Industries</option>
-                                        <option value="Tech">Technology & CS</option>
-                                        <option value="Med">Healthcare & Medicine</option>
-                                        <option value="Law">Law & Government</option>
-                                        <option value="Business">Business & Finance</option>
+                                        <option value="Tech">Technology &amp; CS</option>
+                                        <option value="Med">Healthcare &amp; Medicine</option>
+                                        <option value="Law">Law &amp; Government</option>
+                                        <option value="Business">Business &amp; Finance</option>
                                     </select>
                                 </div>
                                 
@@ -755,23 +795,23 @@
                     <div class="w-full md:w-64 flex-shrink-0">
                         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-3 space-y-1 sticky top-24">
                             <div class="p-4 flex items-center gap-3 mb-2 border-b border-gray-50">
-                                <img loading="lazy" src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Alex Carter profile" class="w-12 h-12 rounded-full object-cover border border-gray-200">
+                                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Alex Carter profile" class="w-12 h-12 rounded-full object-cover border border-gray-200">
                                 <div>
                                     <div id="prof-name-display" class="font-bold text-gray-900 leading-tight">Alex Carter</div>
                                     <div id="prof-school-display" class="text-xs text-gray-500">Student Account</div>
                                 </div>
                             </div>
-                            <button onclick="switchSettingsTab('edit-profile', this)" class="settings-tab-btn active w-full text-left px-4 py-3 rounded-xl font-bold bg-gray-50 text-hbcu-onyx transition-colors flex items-center gap-3">
+                            <button type="button" onclick="switchSettingsTab('edit-profile', this)" class="settings-tab-btn active w-full text-left px-4 py-3 rounded-xl font-bold bg-gray-50 text-hbcu-onyx transition-colors flex items-center gap-3">
                                 <i class="far fa-user w-5 text-center"></i> Edit Profile
                             </button>
-                            <button onclick="switchSettingsTab('account', this)" class="settings-tab-btn w-full text-left px-4 py-3 rounded-xl font-medium text-gray-600 hover:bg-gray-50 transition-colors flex items-center gap-3">
+                            <button type="button" onclick="switchSettingsTab('account', this)" class="settings-tab-btn w-full text-left px-4 py-3 rounded-xl font-medium text-gray-600 hover:bg-gray-50 transition-colors flex items-center gap-3">
                                 <i class="fas fa-cog w-5 text-center"></i> Account Settings
                             </button>
-                            <button onclick="switchSettingsTab('security', this)" class="settings-tab-btn w-full text-left px-4 py-3 rounded-xl font-medium text-gray-600 hover:bg-gray-50 transition-colors flex items-center gap-3">
+                            <button type="button" onclick="switchSettingsTab('security', this)" class="settings-tab-btn w-full text-left px-4 py-3 rounded-xl font-medium text-gray-600 hover:bg-gray-50 transition-colors flex items-center gap-3">
                                 <i class="fas fa-shield-alt w-5 text-center"></i> Security & Password
                             </button>
                             <hr class="my-2 border-gray-100">
-                            <button onclick="logout()" class="w-full text-left px-4 py-3 rounded-xl font-medium text-red-500 hover:bg-red-50 transition-colors flex items-center gap-3">
+                            <button type="button" onclick="logout()" class="w-full text-left px-4 py-3 rounded-xl font-medium text-red-500 hover:bg-red-50 transition-colors flex items-center gap-3">
                                 <i class="fas fa-sign-out-alt w-5 text-center"></i> Log Out
                             </button>
                         </div>
@@ -787,15 +827,15 @@
                             
                             <div class="mb-8 flex items-center gap-6">
                                 <div class="relative">
-                                    <img loading="lazy" src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Profile photo" class="w-24 h-24 rounded-full object-cover border-4 border-gray-50 shadow-sm">
-                                    <button class="absolute bottom-0 right-0 bg-hbcu-onyx text-white w-8 h-8 rounded-full flex items-center justify-center border-2 border-white hover:bg-hbcu-crimson transition-colors shadow-sm">
+                                    <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Profile photo" class="w-24 h-24 rounded-full object-cover border-4 border-gray-50 shadow-sm">
+                                    <button type="button" aria-label="Change profile avatar" class="absolute bottom-0 right-0 bg-hbcu-onyx text-white w-8 h-8 rounded-full flex items-center justify-center border-2 border-white hover:bg-hbcu-crimson transition-colors shadow-sm">
                                         <i class="fas fa-camera text-xs"></i>
                                     </button>
                                 </div>
                                 <div>
                                     <div class="flex gap-3">
-                                        <button class="px-4 py-2 border border-gray-300 rounded-lg text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors">Change Photo</button>
-                                        <button class="px-4 py-2 text-red-500 font-medium text-sm hover:bg-red-50 rounded-lg transition-colors">Remove</button>
+                                        <button type="button" class="px-4 py-2 border border-gray-300 rounded-lg text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors">Change Photo</button>
+                                        <button type="button" class="px-4 py-2 text-red-500 font-medium text-sm hover:bg-red-50 rounded-lg transition-colors">Remove</button>
                                     </div>
                                     <p class="text-xs text-gray-400 mt-2">JPG, GIF or PNG. 5MB max.</p>
                                 </div>
@@ -841,7 +881,7 @@
                             </div>
 
                             <div class="flex justify-end pt-6 border-t border-gray-100">
-                                <button onclick="saveProfile(this)" class="bg-hbcu-onyx text-white px-8 py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors shadow-sm">Save Profile Changes</button>
+                                <button type="button" onclick="saveProfile(this)" class="bg-hbcu-onyx text-white px-8 py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors shadow-sm">Save Profile Changes</button>
                             </div>
                         </div>
 
@@ -872,11 +912,11 @@
                                     <h4 class="font-bold text-red-800">Delete Account</h4>
                                     <p class="text-red-600 text-sm mt-1">Permanently delete your profile and all network data.</p>
                                 </div>
-                                <button class="px-4 py-2 border border-red-200 bg-white text-red-600 font-bold rounded-lg hover:bg-red-600 hover:text-white transition-colors">Delete</button>
+                                <button type="button" class="px-4 py-2 border border-red-200 bg-white text-red-600 font-bold rounded-lg hover:bg-red-600 hover:text-white transition-colors">Delete</button>
                             </div>
 
                             <div class="flex justify-end pt-8">
-                                <button onclick="saveProfile(this)" class="bg-hbcu-onyx text-white px-8 py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors shadow-sm">Save Account Settings</button>
+                                <button type="button" onclick="saveProfile(this)" class="bg-hbcu-onyx text-white px-8 py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors shadow-sm">Save Account Settings</button>
                             </div>
                         </div>
 
@@ -888,16 +928,16 @@
                             <div class="space-y-6 mb-8 max-w-lg">
                                 <div>
                                     <label class="block text-sm font-bold text-gray-700 mb-2">Current Password</label>
-                                    <input type="password" placeholder="••••••••" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-hbcu-crimson/50 focus:border-hbcu-crimson outline-none transition-all bg-gray-50 focus:bg-white">
+                                    <input type="password" autocomplete="current-password" placeholder="••••••••" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-hbcu-crimson/50 focus:border-hbcu-crimson outline-none transition-all bg-gray-50 focus:bg-white">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-bold text-gray-700 mb-2">New Password</label>
-                                    <input type="password" placeholder="Enter new password" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-hbcu-crimson/50 focus:border-hbcu-crimson outline-none transition-all bg-gray-50 focus:bg-white">
+                                    <input type="password" autocomplete="new-password" placeholder="Enter new password" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-hbcu-crimson/50 focus:border-hbcu-crimson outline-none transition-all bg-gray-50 focus:bg-white">
                                     <p class="text-xs text-gray-500 mt-2">Must be at least 8 characters long.</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-bold text-gray-700 mb-2">Confirm New Password</label>
-                                    <input type="password" placeholder="Confirm new password" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-hbcu-crimson/50 focus:border-hbcu-crimson outline-none transition-all bg-gray-50 focus:bg-white">
+                                    <input type="password" autocomplete="new-password" placeholder="Confirm new password" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-hbcu-crimson/50 focus:border-hbcu-crimson outline-none transition-all bg-gray-50 focus:bg-white">
                                 </div>
                             </div>
                             
@@ -907,11 +947,11 @@
                                     <p class="font-medium text-gray-900">SMS Authentication</p>
                                     <p class="text-sm text-gray-500">Receive a code via SMS when logging in from a new device.</p>
                                 </div>
-                                <button class="w-12 h-6 bg-gray-200 rounded-full relative transition-colors"><div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm"></div></button>
+                                <button type="button" aria-label="Toggle SMS authentication" class="w-12 h-6 bg-gray-200 rounded-full relative transition-colors"><span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm" aria-hidden="true"></span></button>
                             </div>
 
                             <div class="flex justify-end pt-8">
-                                <button onclick="saveProfile(this)" class="bg-hbcu-onyx text-white px-8 py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors shadow-sm">Update Password</button>
+                                <button type="button" onclick="saveProfile(this)" class="bg-hbcu-onyx text-white px-8 py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors shadow-sm">Update Password</button>
                             </div>
                         </div>
 
@@ -928,7 +968,7 @@
                         <h1 class="text-4xl font-bold brand-font text-hbcu-onyx mb-2">Events & Homecoming</h1>
                         <p class="text-gray-500">Don't miss the biggest moments on and off campus.</p>
                     </div>
-                    <button class="mt-4 md:mt-0 bg-hbcu-onyx text-white px-6 py-2.5 rounded-full font-medium hover:bg-gray-800 transition-colors" onclick="openModal('Host an Event', 'Event creation form will open here.')">
+                    <button type="button" class="mt-4 md:mt-0 bg-hbcu-onyx text-white px-6 py-2.5 rounded-full font-medium hover:bg-gray-800 transition-colors" onclick="openModal('Host an Event', 'Event creation form will open here.')">
                         + Host Event
                     </button>
                 </div>
@@ -937,7 +977,7 @@
                     <!-- Featured Event -->
                     <div class="lg:col-span-2 relative rounded-2xl overflow-hidden group hover-lift shadow-lg cursor-pointer" onclick="openModal('Event Details', 'Registration opens next week.')">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>
-                        <img loading="lazy" src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Homecoming" class="w-full h-full object-cover aspect-[16/9] group-hover:scale-105 transition-transform duration-700">
+                        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Homecoming" class="w-full h-full object-cover aspect-[16/9] group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute bottom-0 left-0 p-8 z-20 w-full">
                             <div class="inline-block bg-hbcu-crimson text-white px-3 py-1 text-xs font-bold rounded mb-3 uppercase tracking-wide">Featured</div>
                             <h2 class="text-3xl md:text-4xl font-bold text-white brand-font mb-2">Howard University Homecoming 2026</h2>
@@ -967,16 +1007,16 @@
                         <h1 class="text-4xl md:text-5xl font-bold brand-font mb-4 leading-tight">Your HBCU Journey Starts Here</h1>
                         <p class="text-red-100 text-lg mb-8 max-w-lg mx-auto md:mx-0">Explore campuses virtually, check admission requirements, apply to multiple schools instantly, and find the scholarships to make it happen.</p>
                         <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                            <button onclick="openModal('Common Black College Application', 'The CBCA allows you to apply to over 65 HBCUs at the same time for one low fee ($20). <br><br>Ready to apply? Click below to be redirected to the official application portal.\n\n<a href=\'https://commonblackcollegeapp.com/\' target=\'_blank\' class=\'text-hbcu-crimson font-bold underline\'>Launch CBCA Portal &rarr;</a>')" class="bg-hbcu-gold text-hbcu-onyx px-8 py-3.5 rounded-full font-bold shadow-lg hover:bg-yellow-400 transition-all hover:scale-105 flex items-center justify-center gap-2">
+                            <button type="button" onclick="openModal('Common Black College Application', 'The CBCA allows you to apply to over 65 HBCUs at the same time for one low fee ($20). <br><br>Ready to apply? Click below to be redirected to the official application portal.\n\n<a href=\'https://commonblackcollegeapp.com/\' target=\'_blank\' class=\'text-hbcu-crimson font-bold underline\'>Launch CBCA Portal &rarr;</a>')" class="bg-hbcu-gold text-hbcu-onyx px-8 py-3.5 rounded-full font-bold shadow-lg hover:bg-yellow-400 transition-all hover:scale-105 flex items-center justify-center gap-2">
                                 <i class="fas fa-file-signature"></i> Apply to 65+ HBCUs
                             </button>
-                            <button onclick="openScholarshipMatch()" class="bg-transparent border-2 border-white/50 text-white px-8 py-3.5 rounded-full font-bold hover:bg-white/10 transition-all hover:scale-105 flex items-center justify-center gap-2">
+                            <button type="button" onclick="openScholarshipMatch()" class="bg-transparent border-2 border-white/50 text-white px-8 py-3.5 rounded-full font-bold hover:bg-white/10 transition-all hover:scale-105 flex items-center justify-center gap-2">
                                 <i class="fas fa-graduation-cap"></i> Find Scholarships
                             </button>
                         </div>
                     </div>
                     <div class="md:w-1/2 w-full">
-                        <img loading="lazy" src="https://images.unsplash.com/photo-1594750852517-f37738fa2384?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Students" class="rounded-2xl shadow-2xl border-4 border-white/10 object-cover w-full h-80">
+                        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1594750852517-f37738fa2384?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Students" class="rounded-2xl shadow-2xl border-4 border-white/10 object-cover w-full h-80">
                     </div>
                 </div>
             </div>
@@ -1060,7 +1100,7 @@
         <!-- ================= SCHOOL PROFILE VIEW ================= -->
         <div id="view-school-profile" class="view-section bg-gray-50 min-h-screen pb-20 pt-8">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <button onclick="switchView('scholars')" class="text-gray-500 hover:text-hbcu-crimson font-medium mb-6 flex items-center gap-2 transition-colors">
+                <button type="button" onclick="switchView('scholars')" class="text-gray-500 hover:text-hbcu-crimson font-medium mb-6 flex items-center gap-2 transition-colors">
                     <i class="fas fa-arrow-left"></i> Back to Future Scholars
                 </button>
                 <div id="school-profile-content" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
@@ -1088,7 +1128,7 @@
                         <option>Atlanta, GA</option>
                         <option>Washington, DC</option>
                     </select>
-                    <button class="bg-hbcu-onyx text-white px-8 py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors" onclick="openModal('Search', 'Advanced search filtering coming soon.')">Search</button>
+                    <button type="button" class="bg-hbcu-onyx text-white px-8 py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors" onclick="openModal('Search', 'Advanced search filtering coming soon.')">Search</button>
                 </div>
 
                 <div class="space-y-4" id="jobs-list">
@@ -1127,7 +1167,7 @@
     <div id="login-content" class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-auto overflow-hidden relative scale-95 transition-all duration-500 transform p-8">
         <div class="flex justify-between items-center mb-6">
             <h2 id="login-modal-title" class="text-3xl font-bold brand-font text-hbcu-onyx">Welcome Back</h2>
-            <button onclick="closeLogin()" class="text-gray-400 hover:text-hbcu-crimson transition-colors">
+            <button type="button" aria-label="Close login modal" onclick="closeLogin()" class="text-gray-400 hover:text-hbcu-crimson transition-colors">
                 <i class="fas fa-times text-xl"></i>
             </button>
         </div>
@@ -1143,10 +1183,10 @@
             <div class="text-right">
                 <a href="#" onclick="showToast('A password reset link has been sent to your email.'); event.preventDefault();" class="text-sm text-hbcu-crimson font-medium hover:underline">Forgot password?</a>
             </div>
-            <button onclick="processLogin()" class="w-full bg-hbcu-onyx text-white py-3.5 rounded-xl font-bold hover:bg-gray-800 transition-colors shadow-lg mt-4">Sign In</button>
+            <button type="button" onclick="processLogin()" class="w-full bg-hbcu-onyx text-white py-3.5 rounded-xl font-bold hover:bg-gray-800 transition-colors shadow-lg mt-4">Sign In</button>
         </div>
         <div class="mt-8 text-center border-t border-gray-100 pt-6">
-            <p class="text-gray-600 text-sm">Don't have an account? <button onclick="closeLogin(); setTimeout(openOnboarding, 300)" class="text-hbcu-gold font-bold hover:underline">Join the Yard</button></p>
+            <p class="text-gray-600 text-sm">Don't have an account? <button type="button" onclick="closeLogin(); setTimeout(openOnboarding, 300)" class="text-hbcu-gold font-bold hover:underline">Join the Yard</button></p>
         </div>
     </div>
 </div>
@@ -1164,7 +1204,7 @@
                 <p class="text-[10px] text-gray-300 uppercase tracking-wider font-bold">HBCU Historian & Guide</p>
             </div>
         </div>
-        <button onclick="toggleAIGriot()" class="text-gray-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center">
+        <button type="button" aria-label="Close AI Griot panel" onclick="toggleAIGriot()" class="text-gray-400 hover:text-white transition-colors w-8 h-8 flex items-center justify-center">
             <i class="fas fa-times"></i>
         </button>
     </div>
@@ -1179,7 +1219,7 @@
     <div class="p-3 bg-white border-t border-gray-200">
         <div class="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-full px-2 py-1.5 focus-within:border-hbcu-gold focus-within:ring-2 focus-within:ring-hbcu-gold/20 transition-all">
             <input type="text" id="griot-input" placeholder="Ask about HBCU history..." class="flex-1 bg-transparent border-none focus:outline-none focus:ring-0 text-sm py-1 px-2" onkeypress="if(event.key === 'Enter') sendGriotMsg()">
-            <button onclick="sendGriotMsg()" aria-label="Send message to AI Griot" class="w-8 h-8 rounded-full bg-hbcu-gold text-hbcu-onyx hover:bg-yellow-400 flex items-center justify-center transition-all shadow-sm"><i class="fas fa-paper-plane text-xs" aria-hidden="true"></i></button>
+            <button type="button" onclick="sendGriotMsg()" aria-label="Send message to AI Griot" class="w-8 h-8 rounded-full bg-hbcu-gold text-hbcu-onyx hover:bg-yellow-400 flex items-center justify-center transition-all shadow-sm"><i class="fas fa-paper-plane text-xs" aria-hidden="true"></i></button>
         </div>
     </div>
 </div>
@@ -1196,7 +1236,7 @@
                 <h2 class="text-3xl font-bold brand-font mb-2">The Quad Pulse</h2>
                 <p class="text-blue-50 max-w-lg">Synthesizing real-time discussions, debates, and sentiment across the HBCU ecosystem.</p>
             </div>
-            <button onclick="closeQuadPulse()" class="text-white/60 hover:text-white transition-colors relative z-10 w-8 h-8 flex justify-center items-center rounded-full bg-black/10 hover:bg-black/30">
+            <button type="button" aria-label="Close Quad Pulse modal" onclick="closeQuadPulse()" class="text-white/60 hover:text-white transition-colors relative z-10 w-8 h-8 flex justify-center items-center rounded-full bg-black/10 hover:bg-black/30">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -1272,7 +1312,7 @@
                 
                 <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 text-left mb-6">
                     <div class="flex items-center gap-4 mb-4">
-                        <img loading="lazy" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Marcus Johnson mentor" class="w-16 h-16 rounded-full object-cover shadow-sm">
+                        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Marcus Johnson mentor" class="w-16 h-16 rounded-full object-cover shadow-sm">
                         <div>
                             <h4 class="font-bold text-gray-900 text-lg">Marcus Johnson</h4>
                             <p class="text-sm text-hbcu-gold font-bold">Howard University '18</p>
@@ -1285,8 +1325,8 @@
                 </div>
                 
                 <div class="flex gap-3">
-                    <button onclick="closeMentorMatch()" class="flex-1 px-4 py-3 bg-gray-100 text-gray-600 font-bold rounded-xl hover:bg-gray-200 transition-colors">Cancel</button>
-                    <button onclick="requestConnection(this, 'Marcus Johnson'); setTimeout(closeMentorMatch, 1500);" class="flex-1 px-4 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all">Send Request</button>
+                    <button type="button" onclick="closeMentorMatch()" class="flex-1 px-4 py-3 bg-gray-100 text-gray-600 font-bold rounded-xl hover:bg-gray-200 transition-colors">Cancel</button>
+                    <button type="button" onclick="requestConnection(this, 'Marcus Johnson'); setTimeout(closeMentorMatch, 1500);" class="flex-1 px-4 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all">Send Request</button>
                 </div>
             </div>
         </div>
@@ -1301,13 +1341,13 @@
                 <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-xl"><i class="fas fa-pen-nib"></i></div>
                 <h2 class="text-xl font-bold brand-font text-gray-900">AI Essay Reviewer</h2>
             </div>
-            <button onclick="closeAIEssay()" class="text-gray-400 hover:text-red-500 transition-colors"><i class="fas fa-times text-xl"></i></button>
+            <button type="button" aria-label="Close AI essay reviewer" onclick="closeAIEssay()" class="text-gray-400 hover:text-red-500 transition-colors"><i class="fas fa-times text-xl"></i></button>
         </div>
         
         <div class="flex-1 overflow-y-auto p-6 md:p-8" id="essay-input-area">
             <p class="text-gray-600 mb-4">Paste your Common App essay or personal statement below. Our AI will analyze it for tone, structure, grammar, and impact.</p>
             <textarea id="essay-textarea" rows="10" class="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none resize-none mb-4 text-sm text-gray-800" placeholder="Paste your essay here..."></textarea>
-            <button onclick="processAIEssay()" class="w-full bg-purple-600 text-white font-bold py-4 rounded-xl shadow-md hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 text-lg">
+            <button type="button" onclick="processAIEssay()" class="w-full bg-purple-600 text-white font-bold py-4 rounded-xl shadow-md hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 text-lg">
                 <i class="fas fa-magic"></i> Analyze Essay
             </button>
         </div>
@@ -1330,7 +1370,7 @@
                 </div>
             </div>
             
-            <button onclick="resetAIEssay()" class="w-full bg-white border-2 border-gray-300 text-gray-700 font-bold py-3 rounded-xl hover:bg-gray-50 transition-colors">Review Another Draft</button>
+            <button type="button" onclick="resetAIEssay()" class="w-full bg-white border-2 border-gray-300 text-gray-700 font-bold py-3 rounded-xl hover:bg-gray-50 transition-colors">Review Another Draft</button>
         </div>
     </div>
 </div>
@@ -1347,7 +1387,7 @@
                     <p class="text-green-50 text-sm">Find tailored funding based on your unique profile.</p>
                 </div>
             </div>
-            <button onclick="closeScholarshipMatch()" class="text-white/60 hover:text-white transition-colors relative z-10 text-xl"><i class="fas fa-times"></i></button>
+            <button type="button" aria-label="Close scholarship matcher" onclick="closeScholarshipMatch()" class="text-white/60 hover:text-white transition-colors relative z-10 text-xl"><i class="fas fa-times"></i></button>
             <i class="fas fa-money-bill-wave absolute -right-4 -bottom-4 text-8xl opacity-10"></i>
         </div>
         
@@ -1392,7 +1432,7 @@
                     </select>
                 </div>
             </div>
-            <button onclick="processScholarshipMatch()" class="w-full bg-hbcu-onyx text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition-all flex items-center justify-center gap-2 shadow-lg">
+            <button type="button" onclick="processScholarshipMatch()" class="w-full bg-hbcu-onyx text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition-all flex items-center justify-center gap-2 shadow-lg">
                 <i class="fas fa-magic text-hbcu-gold"></i> Find My Matches
             </button>
         </div>
@@ -1414,7 +1454,7 @@
                         <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-lg">$10,000/yr</span>
                     </div>
                     <p class="text-sm text-gray-600 mb-4">Highly matched based on your STEM major selection and GPA. Supports African American high school students aspiring to earn STEM degrees.</p>
-                    <button onclick="window.open('https://uncf.org/scholarships', '_blank', 'noopener,noreferrer')" class="text-sm font-bold text-green-600 hover:text-green-700 transition-colors">Apply on UNCF Portal &rarr;</button>
+                    <button type="button" onclick="window.open('https://uncf.org/scholarships', '_blank', 'noopener,noreferrer')" class="text-sm font-bold text-green-600 hover:text-green-700 transition-colors">Apply on UNCF Portal &rarr;</button>
                 </div>
 
                 <div class="bg-white p-5 rounded-xl border border-blue-200 shadow-sm relative overflow-hidden">
@@ -1424,7 +1464,7 @@
                         <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded-lg">Up to $7,200</span>
                     </div>
                     <p class="text-sm text-gray-600 mb-4">Matched based on your college preference. Open to students attending public historically black colleges and universities (HBCUs).</p>
-                    <button onclick="window.open('https://www.tmcf.org/students-alumni/scholarships/', '_blank', 'noopener,noreferrer')" class="text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors">Apply on TMCF Portal &rarr;</button>
+                    <button type="button" onclick="window.open('https://www.tmcf.org/students-alumni/scholarships/', '_blank', 'noopener,noreferrer')" class="text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors">Apply on TMCF Portal &rarr;</button>
                 </div>
 
                 <div class="bg-white p-5 rounded-xl border border-hbcu-gold shadow-sm relative overflow-hidden">
@@ -1434,7 +1474,7 @@
                         <span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded-lg">$2,500</span>
                     </div>
                     <p class="text-sm text-gray-600 mb-4">A private network grant awarded to active members of the Future Scholars hub demonstrating community leadership.</p>
-                    <button class="text-sm font-bold text-hbcu-onyx hover:underline transition-colors">1-Click Apply &rarr;</button>
+                    <button type="button" class="text-sm font-bold text-hbcu-onyx hover:underline transition-colors">1-Click Apply &rarr;</button>
                 </div>
             </div>
         </div>
@@ -1446,7 +1486,7 @@
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300" id="modal-content-box">
             <div class="flex justify-between items-start mb-4">
                 <h3 class="text-2xl font-bold brand-font text-hbcu-onyx" id="modal-title">Modal Title</h3>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-700 bg-gray-100 rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                <button type="button" aria-label="Close modal" onclick="closeModal()" class="text-gray-400 hover:text-gray-700 bg-gray-100 rounded-full w-8 h-8 flex items-center justify-center transition-colors">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -1454,8 +1494,8 @@
                 Modal content goes here.
             </div>
             <div class="flex justify-end gap-3">
-                <button onclick="closeModal()" class="px-4 py-2 text-gray-600 font-medium hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
-                <button onclick="closeModal()" class="px-6 py-2 bg-hbcu-onyx text-white font-medium rounded-lg hover:bg-hbcu-crimson transition-colors">Okay</button>
+                <button type="button" onclick="closeModal()" class="px-4 py-2 text-gray-600 font-medium hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
+                <button type="button" onclick="closeModal()" class="px-6 py-2 bg-hbcu-onyx text-white font-medium rounded-lg hover:bg-hbcu-crimson transition-colors">Okay</button>
             </div>
         </div>
     </div>
@@ -1551,7 +1591,7 @@
             let joinHtml = "";
             if(!window.hasJoined) {
                 icon = "fa-lock";
-                joinHtml = `<button onclick="openOnboarding(); this.parentElement.remove();" class="ml-2 text-hbcu-gold underline hover:text-white transition-colors cursor-pointer">Join the Yard &rarr;</button>`;
+                joinHtml = `<button type="button" onclick="openOnboarding(); this.parentElement.remove();" class="ml-2 text-hbcu-gold underline hover:text-white transition-colors cursor-pointer">Join the Yard &rarr;</button>`;
             }
             toast.innerHTML = `<i class="fas ${icon} text-hbcu-gold"></i> <span>${message}</span> ${joinHtml}`;
             
@@ -1653,9 +1693,9 @@
                 const html = `
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover-lift flex flex-col">
                         <div class="relative h-48 group">
-                            <img loading="lazy" src="${s.img}" alt="Campus" class="w-full h-full object-cover">
+                            <img loading="lazy" decoding="async" src="${s.img}" alt="Campus" class="w-full h-full object-cover">
                             <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
-                                <button onclick="openTourModal('${safeName}', '${s.video}')" class="bg-white/90 text-gray-900 font-bold px-6 py-3 rounded-full shadow-xl hover:bg-white transition-all transform scale-95 group-hover:scale-100 flex items-center gap-2">
+                                <button type="button" onclick="openTourModal('${safeName}', '${s.video}')" class="bg-white/90 text-gray-900 font-bold px-6 py-3 rounded-full shadow-xl hover:bg-white transition-all transform scale-95 group-hover:scale-100 flex items-center gap-2">
                                     <i class="fas fa-play-circle text-${safeColor}"></i> Start Video Tour
                                 </button>
                             </div>
@@ -1680,7 +1720,7 @@
                                     <span class="font-bold text-gray-800">${s.fee}</span>
                                 </div>
                             </div>
-                            <button onclick="openModal('Admissions: ${safeName}', 'General Requirements:<br>- Application via Common App or CBCA<br>- Official High School Transcript<br>- SAT/ACT Scores (Check if test-optional)<br>- Letters of Recommendation')" class="w-full py-2.5 border-2 border-${safeColor} text-${safeColor} font-bold rounded-lg hover:bg-${safeColor} hover:text-white transition-colors">
+                            <button type="button" onclick="openModal('Admissions: ${safeName}', 'General Requirements:<br>- Application via Common App or CBCA<br>- Official High School Transcript<br>- SAT/ACT Scores (Check if test-optional)<br>- Letters of Recommendation')" class="w-full py-2.5 border-2 border-${safeColor} text-${safeColor} font-bold rounded-lg hover:bg-${safeColor} hover:text-white transition-colors">
                                 View Requirements
                             </button>
                         </div>
@@ -1730,7 +1770,7 @@
             
             container.innerHTML = `
                 <div class="relative h-64 md:h-96 w-full group">
-                    <img loading="lazy" src="${school.img}" class="w-full h-full object-cover">
+                    <img loading="lazy" decoding="async" src="${school.img}" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
                         <div class="inline-flex items-center gap-2 bg-${safeColor} text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 shadow-sm">
@@ -1765,7 +1805,7 @@
                                         <div class="text-xs text-gray-500 flex items-center gap-2"><i class="fas fa-envelope w-4"></i> athletics@${safeName.toLowerCase().replace(/[^a-z]/g, '')}.edu</div>
                                         <div class="text-xs text-gray-500 flex items-center gap-2"><i class="fas fa-phone w-4"></i> (555) 019-8472</div>
                                     </div>
-                                    <button onclick="showToast('Athletics Questionnaire opened.')" class="w-full text-sm font-bold border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition-colors">Recruiting Form</button>
+                                    <button type="button" onclick="showToast('Athletics Questionnaire opened.')" class="w-full text-sm font-bold border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition-colors">Recruiting Form</button>
                                 </div>
                                 
                                 <!-- Band -->
@@ -1777,7 +1817,7 @@
                                         <div class="text-xs text-gray-500 flex items-center gap-2"><i class="fas fa-envelope w-4"></i> bands@${safeName.toLowerCase().replace(/[^a-z]/g, '')}.edu</div>
                                         <div class="text-xs text-gray-500 flex items-center gap-2"><i class="fas fa-video w-4"></i> Audition Portal Active</div>
                                     </div>
-                                    <button onclick="showToast('Band Audition Portal opened.')" class="w-full text-sm font-bold border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition-colors">Submit Audition</button>
+                                    <button type="button" onclick="showToast('Band Audition Portal opened.')" class="w-full text-sm font-bold border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition-colors">Submit Audition</button>
                                 </div>
                             </div>
                         </div>
@@ -1803,11 +1843,11 @@
                             </div>
                         </div>
                         
-                        <button onclick="openModal('Apply to ${safeName}', 'Redirecting to official application portal...')" class="w-full bg-hbcu-onyx text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition-colors shadow-lg flex items-center justify-center gap-2 text-lg">
+                        <button type="button" onclick="openModal('Apply to ${safeName}', 'Redirecting to official application portal...')" class="w-full bg-hbcu-onyx text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition-colors shadow-lg flex items-center justify-center gap-2 text-lg">
                             <i class="fas fa-paper-plane text-hbcu-gold"></i> Apply Now
                         </button>
                         
-                        <button onclick="openMentorMatch()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 rounded-xl font-bold hover:shadow-lg transition-colors flex items-center justify-center gap-2 text-lg group">
+                        <button type="button" onclick="openMentorMatch()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 rounded-xl font-bold hover:shadow-lg transition-colors flex items-center justify-center gap-2 text-lg group">
                             <i class="fas fa-magic group-hover:animate-ping"></i> Find Alumni Mentor
                         </button>
                     </div>
@@ -2004,7 +2044,7 @@
                     <div class="bg-white rounded-xl shadow-sm p-5 border border-gray-100 hover-lift animate-fade-in">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex gap-3 items-center">
-                                <img loading="lazy" src="${post.avatar}" class="w-12 h-12 rounded-full object-cover shadow-sm">
+                                <img loading="lazy" decoding="async" src="${post.avatar}" class="w-12 h-12 rounded-full object-cover shadow-sm">
                                 <div>
                                     <h4 class="font-bold text-gray-900">${post.author}</h4>
                                     <p class="text-xs text-gray-500">${post.role} • ${post.time}</p>
@@ -2014,13 +2054,13 @@
                         </div>
                         <p class="text-gray-800 mb-4 leading-relaxed">${post.content}</p>
                         <div class="flex gap-6 border-t border-gray-50 pt-3">
-                            <button class="flex items-center gap-2 text-gray-500 hover:text-hbcu-crimson transition-colors" onclick="this.classList.toggle('text-hbcu-crimson'); this.querySelector('i').classList.toggle('far'); this.querySelector('i').classList.toggle('fas')">
+                            <button type="button" class="flex items-center gap-2 text-gray-500 hover:text-hbcu-crimson transition-colors" onclick="this.classList.toggle('text-hbcu-crimson'); this.querySelector('i').classList.toggle('far'); this.querySelector('i').classList.toggle('fas')">
                                 <i class="far fa-heart"></i> ${post.likes}
                             </button>
-                            <button class="flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors" onclick="openModal('Comments', 'Commenting feature is coming soon.')">
+                            <button type="button" class="flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors" onclick="openModal('Comments', 'Commenting feature is coming soon.')">
                                 <i class="far fa-comment"></i> ${post.comments}
                             </button>
-                            <button class="flex items-center gap-2 text-gray-500 hover:text-green-600 transition-colors ml-auto" onclick="openModal('Share', 'Share functionality disabled in demo.')">
+                            <button type="button" class="flex items-center gap-2 text-gray-500 hover:text-green-600 transition-colors ml-auto" onclick="openModal('Share', 'Share functionality disabled in demo.')">
                                 <i class="far fa-share-square"></i> Share
                             </button>
                         </div>
@@ -2063,7 +2103,7 @@
                     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover-lift flex flex-col group cursor-pointer" onclick="openModal('${p.name}', '${p.role}\\n${p.school} ${p.year}\\nMajor: ${p.major}')">
                         <div class="h-20 bg-gradient-to-r from-gray-800 to-gray-600 relative"></div>
                         <div class="px-5 pb-5 flex-1 flex flex-col items-center text-center relative">
-                            <img loading="lazy" src="${p.avatar}" class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md -mt-10 mb-3 group-hover:scale-105 transition-transform">
+                            <img loading="lazy" decoding="async" src="${p.avatar}" class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md -mt-10 mb-3 group-hover:scale-105 transition-transform">
                             <h3 class="font-bold text-lg text-gray-900 leading-tight">${p.name}</h3>
                             <p class="text-sm text-hbcu-gold font-semibold mb-1">${p.school} ${p.year}</p>
                             <p class="text-xs text-gray-500 mb-4">${p.major}</p>
@@ -2072,9 +2112,9 @@
                             </div>
                         </div>
                         <div class="px-5 py-3 bg-gray-50 border-t border-gray-100 flex justify-between gap-2 z-10 relative">
-                            <button class="text-gray-400 hover:text-blue-600 transition-colors px-2"><i class="fab fa-linkedin text-lg"></i></button>
-                            <button onclick="event.stopPropagation(); requestConnection(this, '${p.name}')" class="flex-1 text-xs bg-hbcu-onyx text-white py-2 font-bold rounded-lg shadow-sm hover:bg-hbcu-gold transition-colors text-center cursor-pointer connect-btn">Connect <i class="fas fa-user-plus ml-1 text-[10px]"></i></button>
-                            <button onclick="event.stopPropagation(); switchView('messages')" class="text-gray-400 hover:text-hbcu-crimson transition-colors px-2"><i class="fas fa-envelope text-lg"></i></button>
+                            <button type="button" class="text-gray-400 hover:text-blue-600 transition-colors px-2"><i class="fab fa-linkedin text-lg"></i></button>
+                            <button type="button" onclick="event.stopPropagation(); requestConnection(this, '${p.name}')" class="flex-1 text-xs bg-hbcu-onyx text-white py-2 font-bold rounded-lg shadow-sm hover:bg-hbcu-gold transition-colors text-center cursor-pointer connect-btn">Connect <i class="fas fa-user-plus ml-1 text-[10px]"></i></button>
+                            <button type="button" onclick="event.stopPropagation(); switchView('messages')" class="text-gray-400 hover:text-hbcu-crimson transition-colors px-2"><i class="fas fa-envelope text-lg"></i></button>
                         </div>
                     </div>
                 `;
@@ -2106,7 +2146,7 @@
             mockEvents.forEach(e => {
                 const html = `
                     <div class="bg-white border border-gray-100 rounded-xl p-4 flex gap-4 hover-lift cursor-pointer shadow-sm" onclick="openModal('${e.title}', 'Location: ${e.loc}\\nHost: ${e.host}\\n\\nRSVP will open soon.')">
-                        <img loading="lazy" src="${e.img}" class="w-24 h-24 rounded-lg object-cover flex-shrink-0">
+                        <img loading="lazy" decoding="async" src="${e.img}" class="w-24 h-24 rounded-lg object-cover flex-shrink-0">
                         <div class="flex-1 py-1">
                             <div class="text-hbcu-crimson text-xs font-bold uppercase tracking-wide mb-1">${e.date}</div>
                             <h3 class="font-bold text-gray-900 text-lg leading-tight mb-1">${e.title}</h3>
@@ -2136,7 +2176,7 @@
                         </div>
                         <div class="flex items-center gap-3">
                             <span class="px-3 py-1 bg-teal-50 text-hbcu-teal text-xs rounded-full font-medium border border-teal-100">${j.type}</span>
-                            <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg text-sm font-medium transition-colors">Apply</button>
+                            <button type="button" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg text-sm font-medium transition-colors">Apply</button>
                         </div>
                     </div>
                 `;
@@ -2161,7 +2201,7 @@
     </script>
     
     <!-- AI Griot Floating Button -->
-    <button onclick="toggleAIGriot()" aria-label="Open AI Griot chatbot" title="Chat with The AI Griot" class="fixed bottom-6 right-6 bg-hbcu-onyx text-white w-14 h-14 rounded-full shadow-2xl hover:scale-110 hover:bg-gray-800 transition-all z-50 flex items-center justify-center border border-hbcu-gold">
+    <button type="button" onclick="toggleAIGriot()" aria-label="Open AI Griot chatbot" title="Chat with The AI Griot" class="fixed bottom-6 right-6 bg-hbcu-onyx text-white w-14 h-14 rounded-full shadow-2xl hover:scale-110 hover:bg-gray-800 transition-all z-50 flex items-center justify-center border border-hbcu-gold">
         <i class="fas fa-robot text-hbcu-gold text-2xl"></i>
     </button>
 
@@ -2174,7 +2214,7 @@
         <!-- Header / Progress -->
         <div class="px-8 pt-8 pb-4 border-b border-gray-100 flex items-center justify-between">
             <h2 class="text-2xl font-serif text-hbcu-onyx" id="onboarding-modal-title"><span id="step-title">The Basics</span></h2>
-            <button onclick="closeOnboarding()" class="text-gray-400 hover:text-hbcu-crimson transition-colors">
+            <button type="button" aria-label="Close onboarding" onclick="closeOnboarding()" class="text-gray-400 hover:text-hbcu-crimson transition-colors">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
         </div>
@@ -2203,22 +2243,22 @@
                     </div>
                     
                     <div class="relative group">
-                        <input type="email" id="ob-email" autocomplete="email" class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Email Address (.edu preferred)" />
+                        <input type="email" id="ob-email" autocomplete="email" required class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Email Address (.edu preferred)">
                         <label for="ob-email" class="absolute left-0 top-2 text-gray-400 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-hbcu-gold peer-valid:-top-4 peer-valid:text-xs">Email Address (.edu preferred)</label>
                     </div>
                     
                     <div class="relative group mt-6">
-                        <input type="password" id="ob-password" autocomplete="new-password" class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Create Password" />
+                        <input type="password" id="ob-password" autocomplete="new-password" required class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Create Password">
                         <label for="ob-password" class="absolute left-0 top-2 text-gray-400 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-hbcu-gold peer-valid:-top-4 peer-valid:text-xs">Create Password</label>
                     </div>
 
                     <div class="relative group mt-6">
-                        <input type="text" id="ob-name" autocomplete="name" class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Full Name" />
+                        <input type="text" id="ob-name" autocomplete="name" required class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Full Name">
                         <label for="ob-name" class="absolute left-0 top-2 text-gray-400 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-hbcu-gold peer-valid:-top-4 peer-valid:text-xs">Full Name</label>
                     </div>
 
                     <div class="relative group mt-6">
-                        <textarea id="ob-bio" rows="2" class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent resize-none" placeholder="Short Bio"></textarea>
+                        <textarea id="ob-bio" rows="2" required class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent resize-none" placeholder="Short Bio"></textarea>
                         <label for="ob-bio" class="absolute left-0 top-2 text-gray-400 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-hbcu-gold peer-valid:-top-4 peer-valid:text-xs">Short Bio</label>
                     </div>
                 </div>
@@ -2339,17 +2379,17 @@
                     
                     <div class="flex space-x-4 mt-6">
                         <div class="relative group w-1/2">
-                            <input type="text" id="ob-grad" class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Grad Year" />
+                            <input type="text" id="ob-grad" required class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Grad Year">
                             <label for="ob-grad" class="absolute left-0 top-2 text-gray-400 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-hbcu-gold peer-valid:-top-4 peer-valid:text-xs">Grad Year</label>
                         </div>
                         <div class="relative group w-1/2">
-                            <input type="text" id="ob-major" class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Major / Degree" />
+                            <input type="text" id="ob-major" required class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Major / Degree">
                             <label for="ob-major" class="absolute left-0 top-2 text-gray-400 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-hbcu-gold peer-valid:-top-4 peer-valid:text-xs">Major / Degree</label>
                         </div>
                     </div>
 
                     <div class="relative group mt-6">
-                        <input type="text" id="ob-greek" class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Fraternity/Sorority/Orgs" />
+                        <input type="text" id="ob-greek" required class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Fraternity/Sorority/Orgs">
                         <label for="ob-greek" class="absolute left-0 top-2 text-gray-400 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-hbcu-gold peer-valid:-top-4 peer-valid:text-xs">Greek Life / Campus Orgs</label>
                     </div>
                 </div>
@@ -2367,11 +2407,11 @@
                 <div class="space-y-5">
                     <div class="flex space-x-4">
                         <div class="relative group w-1/2">
-                            <input type="text" id="ob-city" class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Current City" />
+                            <input type="text" id="ob-city" required class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Current City">
                             <label for="ob-city" class="absolute left-0 top-2 text-gray-400 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-hbcu-gold peer-valid:-top-4 peer-valid:text-xs">Current City</label>
                         </div>
                         <div class="relative group w-1/2">
-                            <input type="text" id="ob-industry" class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Industry / Role" />
+                            <input type="text" id="ob-industry" required class="w-full bg-transparent border-b-2 border-gray-200 py-2 focus:outline-none focus:border-hbcu-gold focus:ring-0 transition-all peer placeholder-transparent" placeholder="Industry / Role">
                             <label for="ob-industry" class="absolute left-0 top-2 text-gray-400 text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-hbcu-gold peer-valid:-top-4 peer-valid:text-xs">Industry / Role</label>
                         </div>
                     </div>
@@ -2541,7 +2581,7 @@ function renderChatSidebar() {
         const safeId = conn.id.replace(/'/g, "\\'");
         const html = `
             <div onclick="openChat('${safeId}')" class="p-4 flex gap-3 items-center hover:bg-gray-50 cursor-pointer border-l-4 ${isActive ? 'border-hbcu-gold bg-gray-50' : 'border-transparent'} transition-colors">
-                <img loading="lazy" src="${conn.avatar}" class="w-12 h-12 rounded-full object-cover">
+                <img loading="lazy" decoding="async" src="${conn.avatar}" class="w-12 h-12 rounded-full object-cover">
                 <div class="flex-1 min-w-0">
                     <div class="flex justify-between items-baseline mb-0.5">
                         <h4 class="font-bold text-gray-900 truncate text-sm">${conn.name}</h4>
@@ -2570,7 +2610,7 @@ function renderConnectionsPanel() {
                     <p class="font-semibold text-gray-900">${conn.name}</p>
                     <p class="text-xs text-gray-500">${conn.school}</p>
                 </div>
-                <button onclick="openChat('${safeId}')" class="text-xs font-bold text-hbcu-crimson hover:underline">Message</button>
+                <button type="button" onclick="openChat('${safeId}')" class="text-xs font-bold text-hbcu-crimson hover:underline">Message</button>
             </div>
         `;
     });
@@ -2602,7 +2642,7 @@ function renderPendingRequests() {
         container.innerHTML += `
             <div class="bg-white border border-gray-100 rounded-xl p-3 shadow-sm relative">
                 <div class="flex gap-3 mb-3">
-                    <img loading="lazy" src="${req.avatar}" class="w-10 h-10 rounded-full object-cover">
+                    <img loading="lazy" decoding="async" src="${req.avatar}" class="w-10 h-10 rounded-full object-cover">
                     <div>
                         <h4 class="font-bold text-gray-900 text-sm">${req.name}</h4>
                         <p class="text-xs text-gray-500">${req.title || ''}</p>
@@ -2610,8 +2650,8 @@ function renderPendingRequests() {
                 </div>
                 <p class="text-xs text-gray-600 mb-3 bg-gray-50 p-2 rounded italic">"${req.message}"</p>
                 <div class="flex gap-2">
-                    <button onclick="handleRequestAction('accept','${safeId}')" class="flex-1 bg-hbcu-onyx text-white text-xs font-bold py-2 rounded-lg hover:bg-green-600 transition-colors">Accept</button>
-                    <button onclick="handleRequestAction('decline','${safeId}')" class="flex-1 bg-gray-100 text-gray-600 text-xs font-bold py-2 rounded-lg hover:bg-gray-200 transition-colors">Decline</button>
+                    <button type="button" onclick="handleRequestAction('accept','${safeId}')" class="flex-1 bg-hbcu-onyx text-white text-xs font-bold py-2 rounded-lg hover:bg-green-600 transition-colors">Accept</button>
+                    <button type="button" onclick="handleRequestAction('decline','${safeId}')" class="flex-1 bg-gray-100 text-gray-600 text-xs font-bold py-2 rounded-lg hover:bg-gray-200 transition-colors">Decline</button>
                 </div>
             </div>
         `;
@@ -2639,7 +2679,7 @@ function renderChatWindow() {
 
     chatHeader.innerHTML = `
         <div class="flex items-center gap-3">
-            <img loading="lazy" src="${conn.avatar}" class="w-10 h-10 rounded-full object-cover">
+            <img loading="lazy" decoding="async" src="${conn.avatar}" class="w-10 h-10 rounded-full object-cover">
             <div>
                 <h3 class="font-bold text-gray-900">${conn.name}</h3>
                 <p class="text-xs text-green-600 font-medium"><i class="fas fa-circle text-[8px] mr-1"></i>${conn.status || 'Online'}</p>
@@ -2661,7 +2701,7 @@ function renderChatWindow() {
         } else {
             chatBox.innerHTML += `
                 <div class="flex gap-3 items-end mb-4 mt-2">
-                    <img loading="lazy" src="${conn.avatar}" class="w-6 h-6 rounded-full object-cover mb-1">
+                    <img loading="lazy" decoding="async" src="${conn.avatar}" class="w-6 h-6 rounded-full object-cover mb-1">
                     <div class="bg-white border border-gray-200 text-gray-800 px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm max-w-[75%] text-sm">
                         ${msg.text.replace(/\n/g, '<br>')}
                     </div>
@@ -2754,7 +2794,7 @@ function sendChatMsg() {
     const thread = document.getElementById('chat-thread');
     const typingHtml = `
         <div class="flex gap-3 items-end typing-indicator mt-2">
-            <img loading="lazy" src="${conn.avatar}" class="w-6 h-6 rounded-full object-cover mb-1">
+            <img loading="lazy" decoding="async" src="${conn.avatar}" class="w-6 h-6 rounded-full object-cover mb-1">
             <div class="bg-white border border-gray-200 text-gray-500 px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm text-xs italic">
                 Typing...
             </div>
